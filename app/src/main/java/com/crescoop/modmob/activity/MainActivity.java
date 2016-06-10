@@ -37,6 +37,8 @@ import net.wimpi.modbus.msg.ReadInputDiscretesResponse;
 import net.wimpi.modbus.msg.WriteSingleRegisterRequest;
 import net.wimpi.modbus.msg.WriteSingleRegisterResponse;
 import net.wimpi.modbus.net.TCPMasterConnection;
+import net.wimpi.modbus.procimg.Register;
+import net.wimpi.modbus.procimg.SimpleRegister;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -93,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                             WriteSingleRegisterRequest req = null; //the request
                             WriteSingleRegisterResponse res = null; //the response
 
+                            Register mRegister = new SimpleRegister();
+                            mRegister.setValue(123);
+
 
                             InetAddress addr = null; //the slave's address
                             try {
@@ -109,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                             //2. Open the connection
                             con = new TCPMasterConnection(addr);
                             con.setPort(port);
+
                             try {
                                 con.connect();
                             }catch (Exception e){
@@ -116,11 +122,13 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                             //3. Prepare the request
-                            req = new WriteSingleRegisterRequest();
+                            req = new WriteSingleRegisterRequest(700,mRegister);
+                            req.setUnitID(1);
 
                             //4. Prepare the transaction
                             trans = new ModbusTCPTransaction(con);
                             trans.setRequest(req);
+
 
                             //5. Execute the transaction repeat times
                             int k = 0;

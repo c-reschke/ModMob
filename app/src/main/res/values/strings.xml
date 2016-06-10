@@ -3,9 +3,12 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="frag_conf_host_txt">Host</string>
     <string name="frag_conf_port_txt">Port</string>
     <string name="frag_conf_offset_txt">Offset</string>
+    <string name="register">Register</string>
+    <string name="value">Value</string>
+    <string name="read_input_register_code_04">Read Input Register - Code 04</string>
+    <string name="holding_register_code_03">ReadWrite Holding Register - Code 03</string>
 </resources>
