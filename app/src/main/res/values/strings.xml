@@ -11,4 +11,6 @@
     <string name="value">Value</string>
     <string name="read_input_register_code_04">Read Input Register - Code 04</string>
     <string name="holding_register_code_03">ReadWrite Holding Register - Code 03</string>
+    <string name="frag_conf_slave_id_txt">Slave ID</string>
+    <string name="salvar">SAVE</string>
 </resources>

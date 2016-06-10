@@ -46,13 +46,21 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="10dp">
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/frag_conf_edit_text_offset"
+            android:id="@+id/frag_conf_edit_text_slave_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="@string/frag_conf_offset_txt"
+            android:hint="@string/frag_conf_slave_id_txt"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_conf_button"
+        android:text="@string/salvar"
+        android:layout_gravity="right"
+        android:layout_marginRight="16dp" />
 
 
 </LinearLayout>
