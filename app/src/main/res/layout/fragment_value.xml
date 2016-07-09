@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.crescoop.modmob.fragments.ValueFragment">
+    <TextView
+        android:id="@+id/fragment_value_value"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="78sp"
+        android:text="0"/>
+    <TextView
+        android:id="@+id/fragment_value_scale"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:text="0-65535"
+        android:gravity="right"
+        android:textSize="16sp" />
+</FrameLayout>

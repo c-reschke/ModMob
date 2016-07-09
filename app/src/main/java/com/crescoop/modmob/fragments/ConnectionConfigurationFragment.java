@@ -24,27 +24,29 @@ public class ConnectionConfigurationFragment extends Fragment {
     private EditText hostEditText;
     private EditText portEditText;
     private EditText slaveIdEditText;
+    private EditText timeoutEditText;
 
     public static ConnectionConfigurationFragment newInstance() {
         return new ConnectionConfigurationFragment();
     }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_configuration, container, false);
 
 
-        final EditText hostEditText = (EditText) getView().findViewById(R.id.frag_conf_edit_text_host);
-        final EditText portEditText = (EditText) getView().findViewById(R.id.frag_conf_edit_text_port);
-        final EditText slaveIdEditText = (EditText) getView().findViewById(R.id.frag_conf_edit_text_slave_id);
+        hostEditText = (EditText) view.findViewById(R.id.frag_conf_edit_text_host);
+        portEditText = (EditText) view.findViewById(R.id.frag_conf_edit_text_port);
+        slaveIdEditText = (EditText) view.findViewById(R.id.frag_conf_edit_text_slave_id);
+        timeoutEditText = (EditText) view.findViewById(R.id.frag_conf_edit_text_timeout);
 
-        saveConfButton = (Button) getView().findViewById(R.id.save_conf_button);
+        saveConfButton = (Button) view.findViewById(R.id.save_conf_button);
         saveConfButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyApplication singleton = MyApplication.getInstance();
 
-                InetAddress addr = null; //the slave's address
+                InetAddress addr = null;
                 try {
                     addr = InetAddress.getByName(hostEditText.getText().toString());
                     singleton.setAddr(addr);
@@ -57,20 +59,14 @@ public class ConnectionConfigurationFragment extends Fragment {
 
                 singleton.setSlave_id(Integer.valueOf(slaveIdEditText.getText().toString()));
 
+                singleton.setTimeout(Integer.valueOf(timeoutEditText.getText().toString()));
 
+                Toast.makeText(getContext(),singleton.getConfiguration(),Toast.LENGTH_LONG).show();
 
 
             }
         });
-
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_configuration, container, false);
+        return view;
     }
 
     @Override

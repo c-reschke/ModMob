@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:text="@string/ip_padrao"
             android:hint="@string/frag_conf_host_txt"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
@@ -30,11 +31,32 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="10dp">
         <android.support.design.widget.TextInputEditText
+            android:id="@+id/frag_conf_edit_text_timeout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:hint="@string/frag_timeout_txt"
+            android:text="@string/timeout"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp">
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/frag_conf_edit_text_port"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
+            android:digits="0123456789"
             android:hint="@string/frag_conf_port_txt"
+            android:text="@string/port"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +71,9 @@
             android:id="@+id/frag_conf_edit_text_slave_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="number"
+            android:digits="0123456789"
+            android:text="@string/slave"
             android:hint="@string/frag_conf_slave_id_txt"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>

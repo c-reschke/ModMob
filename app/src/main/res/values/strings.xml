@@ -13,4 +13,10 @@
     <string name="holding_register_code_03">ReadWrite Holding Register - Code 03</string>
     <string name="frag_conf_slave_id_txt">Slave ID</string>
     <string name="salvar">SAVE</string>
+    <string name="slave">1</string>
+    <string name="port">502</string>
+    <string name="ip_padrao">192.168.25.90</string>
+    <string name="_0">0</string>
+    <string name="frag_timeout_txt">Timeout(seg)</string>
+    <string name="timeout">1000</string>
 </resources>

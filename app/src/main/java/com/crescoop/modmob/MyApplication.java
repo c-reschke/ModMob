@@ -12,7 +12,7 @@ public class MyApplication extends Application{
     private InetAddress addr = null;
     private int port;
     private int slave_id;
-
+    private int timeout;
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -64,5 +64,27 @@ public class MyApplication extends Application{
 
     public void setSlave_id(int slave_id) {
         this.slave_id = slave_id;
+    }
+
+    public static MyApplication getSingleton() {
+        return singleton;
+    }
+
+    public static void setSingleton(MyApplication singleton) {
+        MyApplication.singleton = singleton;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public String getConfiguration(){
+
+         return this.addr.toString()+"\n"+this.timeout+"\n"+this.port+"\n"+this.slave_id;
+
     }
 }
