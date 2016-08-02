@@ -64,7 +64,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/read_input_register_code_04"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp">
                     </TextView>
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
@@ -96,11 +97,13 @@
                             android:id="@+id/input_register_value"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+
                             android:inputType="number"
                             android:digits="0123456789"
                             android:hint="@string/value"
                             android:text="@string/_0"
-                            android:singleLine="true"/>
+                            android:singleLine="true"
+                             />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -131,7 +134,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/holding_register_code_03"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="5dp">
                     </TextView>
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"

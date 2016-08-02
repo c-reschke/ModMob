@@ -3,6 +3,7 @@ package com.crescoop.modmob.fragments;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.crescoop.modmob.interfaces.HoldingRegisterListner;
 import com.crescoop.modmob.interfaces.InputRegisterListner;
 import com.crescoop.modmob.servico.HoldingRegisterService;
 import com.crescoop.modmob.servico.InputRegisterService;
+import com.crescoop.modmob.servico.WriteHoldingRegister;
 
 import net.wimpi.modbus.Modbus;
 import net.wimpi.modbus.ModbusException;
@@ -120,6 +122,34 @@ public class StatusFragment extends Fragment {
     }
 
     private void writeHolding() {
+
+
+
+        int register = Integer.valueOf(holdingRegisterValue.getText().toString());
+
+        Log.d(TAG, String.valueOf(register));
+
+        WriteHoldingRegister writeHoldingRegister = new WriteHoldingRegister(new HoldingRegisterListner() {
+            @Override
+            public void serviceSuccess(int result) {
+
+            }
+
+            @Override
+            public void serviceFailure(Exception exception) {
+                Toast.makeText(getContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void serviceUpdate(String msgHex) {
+                terminalTextView.append(msgHex);
+            }
+        });
+        writeHoldingRegister.execute(register,Integer.valueOf(holdingRegister.getText().toString()));
+
+
+
+
        /* Runnable runnable = new Runnable() {
             public void run() {
 

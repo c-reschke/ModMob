@@ -9,6 +9,8 @@ import com.crescoop.modmob.interfaces.InputRegisterListner;
 
 import net.wimpi.modbus.ModbusException;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
+import net.wimpi.modbus.msg.ReadInputRegistersRequest;
+import net.wimpi.modbus.msg.ReadInputRegistersResponse;
 import net.wimpi.modbus.msg.ReadMultipleRegistersRequest;
 import net.wimpi.modbus.msg.ReadMultipleRegistersResponse;
 import net.wimpi.modbus.net.TCPMasterConnection;
@@ -21,10 +23,10 @@ public class InputRegisterService extends AsyncTask<Integer, String, Integer> {
     private InputRegisterListner listener;
     private Exception error;
 
-    private  TCPMasterConnection con;
+    private TCPMasterConnection con;
     private ModbusTCPTransaction trans;
-    private ReadMultipleRegistersRequest req;
-    private ReadMultipleRegistersResponse res;
+    private ReadInputRegistersRequest req;
+    private ReadInputRegistersResponse res;
 
     private InetAddress addr;
     private int port;
@@ -57,7 +59,7 @@ public class InputRegisterService extends AsyncTask<Integer, String, Integer> {
             error = new InputRegisterServiceException(e.getLocalizedMessage());
         }
 
-        req = new ReadMultipleRegistersRequest(register[0], 1);
+        req = new ReadInputRegistersRequest(register[0], 1);
         req.setUnitID(this.slaveID);
 
 
@@ -68,7 +70,7 @@ public class InputRegisterService extends AsyncTask<Integer, String, Integer> {
 
         try {
             trans.execute();
-            res = (ReadMultipleRegistersResponse) trans.getResponse();
+            res = (ReadInputRegistersResponse) trans.getResponse();
             publishProgress("\nRX: "+res.getHexMessage());
         } catch (ModbusException e) {
             e.printStackTrace();
@@ -93,7 +95,7 @@ public class InputRegisterService extends AsyncTask<Integer, String, Integer> {
     @Override
     protected void onProgressUpdate(String... progress){
         listener.serviceUpdate(progress[0]);
-        Log.d(TAG,progress[0]);
+       // Log.d(TAG,progress[0]);
     }
 
     @Override

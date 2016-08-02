@@ -7,10 +7,16 @@ import com.crescoop.modmob.MyApplication;
 import com.crescoop.modmob.interfaces.HoldingRegisterListner;
 
 import net.wimpi.modbus.ModbusException;
+import net.wimpi.modbus.ModbusIOException;
+import net.wimpi.modbus.ModbusSlaveException;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
-import net.wimpi.modbus.msg.ReadInputRegistersRequest;
-import net.wimpi.modbus.msg.ReadInputRegistersResponse;
+import net.wimpi.modbus.msg.ExceptionResponse;
+import net.wimpi.modbus.msg.WriteSingleRegisterRequest;
+import net.wimpi.modbus.msg.WriteSingleRegisterResponse;
 import net.wimpi.modbus.net.TCPMasterConnection;
+import net.wimpi.modbus.procimg.IllegalAddressException;
+import net.wimpi.modbus.procimg.Register;
+import net.wimpi.modbus.procimg.SimpleRegister;
 
 import java.net.InetAddress;
 
@@ -23,8 +29,8 @@ public class WriteHoldingRegister extends AsyncTask<Integer, String, Integer>{
 
     private TCPMasterConnection con;
     private ModbusTCPTransaction trans;
-    private ReadInputRegistersRequest req;
-    private ReadInputRegistersResponse res;
+    private WriteSingleRegisterRequest req;
+    private WriteSingleRegisterResponse res;
 
     private InetAddress addr;
     private int port;
@@ -43,7 +49,7 @@ public class WriteHoldingRegister extends AsyncTask<Integer, String, Integer>{
     }
 
     @Override
-    protected Integer doInBackground(Integer... inputRegister) {
+    protected Integer doInBackground(Integer... holdingRegister) {
 
         con = new TCPMasterConnection(addr);
         con.setPort(port);
@@ -56,7 +62,9 @@ public class WriteHoldingRegister extends AsyncTask<Integer, String, Integer>{
             error = new WriteHoldingRegisterException(e.getLocalizedMessage());
         }
         //3. Prepare the request
-        req = new ReadInputRegistersRequest(inputRegister[0], 1);
+        Register mRegister = new SimpleRegister();
+        mRegister.setValue(holdingRegister[0]);
+        req = new WriteSingleRegisterRequest(holdingRegister[1],mRegister);
         req.setUnitID(this.slaveID);
 
         //4. Prepare the transaction
@@ -66,8 +74,17 @@ public class WriteHoldingRegister extends AsyncTask<Integer, String, Integer>{
         try {
 
             trans.execute();
-            res = (ReadInputRegistersResponse) trans.getResponse();
+            res = (WriteSingleRegisterResponse) trans.getResponse();
             publishProgress("\nRX: "+res.getHexMessage());
+        } catch (ModbusSlaveException ex){
+            if ( ex.isType(2)){
+                error = new WriteHoldingRegisterException("Illegal Data Address");
+
+            }else {
+                error = new WriteHoldingRegisterException(ex.getMessage());
+            }
+            con.close();
+            return null;
         } catch (ModbusException e) {
             e.printStackTrace();
             error = new WriteHoldingRegisterException(e.getLocalizedMessage());
@@ -75,9 +92,9 @@ public class WriteHoldingRegister extends AsyncTask<Integer, String, Integer>{
             return null;
         }
         try {
-            int result = res.getRegister(0).getValue();
+            // int result = res.getRegister(0).getValue();
             con.close();
-            return result;
+            // return result;
 
         }catch (Exception e){
             e.printStackTrace();

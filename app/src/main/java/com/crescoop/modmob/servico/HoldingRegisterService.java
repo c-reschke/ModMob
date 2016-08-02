@@ -9,8 +9,8 @@ import com.crescoop.modmob.interfaces.HoldingRegisterListner;
 
 import net.wimpi.modbus.ModbusException;
 import net.wimpi.modbus.io.ModbusTCPTransaction;
-import net.wimpi.modbus.msg.ReadInputRegistersRequest;
-import net.wimpi.modbus.msg.ReadInputRegistersResponse;
+import net.wimpi.modbus.msg.ReadMultipleRegistersRequest;
+import net.wimpi.modbus.msg.ReadMultipleRegistersResponse;
 import net.wimpi.modbus.net.TCPMasterConnection;
 
 import java.net.InetAddress;
@@ -21,10 +21,10 @@ public class HoldingRegisterService extends AsyncTask<Integer, String, Integer> 
     private HoldingRegisterListner listener;
     private Exception error;
 
-    private  TCPMasterConnection con;
+    private TCPMasterConnection con;
     private ModbusTCPTransaction trans;
-    private  ReadInputRegistersRequest req;
-    private ReadInputRegistersResponse res;
+    private ReadMultipleRegistersRequest req;
+    private ReadMultipleRegistersResponse res;
 
     private InetAddress addr;
     private int port;
@@ -56,7 +56,7 @@ public class HoldingRegisterService extends AsyncTask<Integer, String, Integer> 
             error = new HoldingRegisterServiceException(e.getLocalizedMessage());
         }
         //3. Prepare the request
-        req = new ReadInputRegistersRequest(inputRegister[0], 1);
+        req = new ReadMultipleRegistersRequest(inputRegister[0], 1);
         req.setUnitID(this.slaveID);
 
         //4. Prepare the transaction
@@ -66,7 +66,7 @@ public class HoldingRegisterService extends AsyncTask<Integer, String, Integer> 
         try {
 
             trans.execute();
-            res = (ReadInputRegistersResponse) trans.getResponse();
+            res = (ReadMultipleRegistersResponse) trans.getResponse();
             publishProgress("\nRX: "+res.getHexMessage());
         } catch (ModbusException e) {
             e.printStackTrace();
